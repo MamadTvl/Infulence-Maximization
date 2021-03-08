@@ -2,26 +2,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Main{
+public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        Graph graph = getGraph(new File("src/Graph.txt"));
-        graph.Sort(true);
-        graph.setIndex();
-        System.out.println("Question A :");
-        new Influence_Maximization(graph);
-//
-//        graph.Sort(false);
+        Graph graph = getGraph(new File("src/Twitter.txt"));
+//        graph.Sort(true);
 //        graph.setIndex();
-//        System.out.println("Question B :");
-//        new Weighted_Influence_Maximization(graph);
+//        System.out.println("Question A :");
+//        new Influence_Maximization(graph);
+//
+        graph.Sort(false);
+        graph.setIndex();
+        System.out.println("Question B :");
+        new Weighted_Influence_Maximization(graph);
 
     }
 
     private static Graph getGraph(File file) throws FileNotFoundException {
         int N, E;
 //        file = new File("src/Graph.txt");
-        Scanner input ;
+        Scanner input;
         input = new Scanner(file);
         N = input.nextInt();
         E = input.nextInt();
@@ -32,7 +32,7 @@ public class Main{
             j++;
         }
         Graph graph = new Graph();
-        for (int i = 0; i < N ; i++) {
+        for (int i = 0; i < N; i++) {
             graph.addNode(node[i]);
         }
         for (int i = 0; i < E; i++)

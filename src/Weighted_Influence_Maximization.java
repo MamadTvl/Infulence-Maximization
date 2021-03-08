@@ -2,12 +2,12 @@ import java.util.HashMap;
 
 class Weighted_Influence_Maximization {
 
-    Weighted_Influence_Maximization(Graph graph){
+    Weighted_Influence_Maximization(Graph graph) {
         DisjointSet[] disjointSet = new DisjointSet[graph.nodes.size()];
         for (int i = 0; i < disjointSet.length; i++) {
             disjointSet[i] = new DisjointSet(Integer.parseInt(String.valueOf(graph.nodes.get(i).label)));
         }
-        for (int i = 0; i < graph.nodes.size() ; i++) {
+        for (int i = 0; i < graph.nodes.size(); i++) {
             if (graph.nodes.get(i).Following == 0) {
                 Influence_Maximization.PublishGraph(graph, i);
                 System.out.println(graph.nodes.get(i).label + "---> Following : 0, Activated : " + graph.Activated);
@@ -20,7 +20,7 @@ class Weighted_Influence_Maximization {
         int first = 0, second = 0, p = 0;
         double Max = -1;
 
-        for (int i = 0; i < graph.nodes.size() ; ++i) {
+        for (int i = 0; i < graph.nodes.size(); ++i) {
             if (graph.nodes.get(i).Status == 2)
                 continue;
             for (int j = i + 1; j < graph.nodes.size(); ++j) {
@@ -55,7 +55,7 @@ class Weighted_Influence_Maximization {
         Influence_Maximization.PublishGraph(graph, first);
         Influence_Maximization.PublishGraph(graph, second);
 
-        for (int i = 0; i < graph.nodes.size() ; i++) {
+        for (int i = 0; i < graph.nodes.size(); i++) {
             if (graph.nodes.get(i).Following == 0)
                 DisjointSet.Union(disjointSet[i], disjointSet[first]);
             if (graph.nodes.get(i).Follower == 0 && graph.nodes.get(i).Following != 0) {
@@ -64,10 +64,10 @@ class Weighted_Influence_Maximization {
         }
         int[] status_2 = new int[graph.nodes.size()];
         int cnt = 0;
-        while (!Influence_Maximization.Check(graph)){
+        while (!Influence_Maximization.Check(graph)) {
             Max = -1;
             int tmp;
-            for (int i = 0; i < graph.nodes.size() ; i++) {
+            for (int i = 0; i < graph.nodes.size(); i++) {
                 if (graph.nodes.get(i).Status > 1)
                     continue;
                 tmp = graph.nodes.get(i).Status;
@@ -77,8 +77,8 @@ class Weighted_Influence_Maximization {
                 if (cost == 0)
                     X = temp_1.ActivatedNodes;
                 else
-                    X = (double) (temp_1.ActivatedNodes)/(cost);
-                if (X > Max){
+                    X = (double) (temp_1.ActivatedNodes) / (cost);
+                if (X > Max) {
                     Max = X;
                     second = i;
                     for (int j = 0; j < temp_1.SnapShot.nodes.size(); j++) {
@@ -95,9 +95,9 @@ class Weighted_Influence_Maximization {
             Influence_Maximization.PublishGraph(graph, second);
             cnt++;
             int y = cnt + graph.Activated;
-            System.out.println(cnt + " Node : " + second + " Activated : " + graph.Activated + "Max : " + Max + "Follower : " + graph.nodes.get(second).Follower );
+            System.out.println(cnt + " Node : " + second + " Activated : " + graph.Activated + "Max : " + Max + "Follower : " + graph.nodes.get(second).Follower);
         }
-        Answer(disjointSet, first,graph);
+        Answer(disjointSet, first, graph);
     }
 
     private void Answer(DisjointSet[] set, int first, Graph g) {
